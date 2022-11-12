@@ -4,6 +4,8 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 
+import android.os.SystemClock;
+
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 
@@ -31,7 +33,7 @@ public class MenuTests {
 
     @Before
     public void logIn() throws InterruptedException {
-        Thread.sleep(7000);
+        SystemClock.sleep(6000);
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {

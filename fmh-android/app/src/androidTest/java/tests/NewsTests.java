@@ -1,5 +1,7 @@
 package tests;
 
+import android.os.SystemClock;
+
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 
@@ -25,7 +27,7 @@ public class NewsTests {
 
     @Before
     public void logIn() throws InterruptedException {
-        Thread.sleep(7000);
+        SystemClock.sleep(6000);
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {

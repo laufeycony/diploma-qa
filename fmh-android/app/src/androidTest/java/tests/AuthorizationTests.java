@@ -3,10 +3,7 @@ package tests;
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
+import android.os.SystemClock;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,7 +27,7 @@ public class AuthorizationTests {
 
     @Before
     public void sleep() throws InterruptedException {
-        Thread.sleep(7000);
+        SystemClock.sleep(6000);
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {

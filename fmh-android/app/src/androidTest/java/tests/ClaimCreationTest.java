@@ -1,8 +1,6 @@
 package tests;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
+import android.os.SystemClock;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.junit4.DisplayName;
@@ -29,57 +27,13 @@ public class ClaimCreationTest {
 
     @Before
     public void logIn() throws InterruptedException {
-        Thread.sleep(7000);
+        SystemClock.sleep(6000);
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {
             return;
         }
         AuthorizationSteps.logIn("login2", "password2");
-    }
-
-    @Test
-    @DisplayName("Пустой ввод в поле \"Тема\" при создании заявки")
-    public void shouldTryCreateClaimWithEmptyTitle() {
-        String emptyTitle = "yes";
-        String title = "no";
-        String emptyExecutor = "no";
-        String withExecutorChoice = "yes";
-        String chosenExecutor = "Netology Diplom QAMID";
-        String executor = "no";
-        String emptyDate = "no";
-        String emptyTime = "no";
-        String withDialPadOrTextInput = "dial";
-        String saveOrCancelTime = "save";
-        String emptyDescription = "no";
-        String description = "New description";
-        ControlPanelSteps.goToClaimsBlock();
-        ClaimsSteps.initiateTheCreationOfClaim();
-        ClaimCreationSteps.fillInTheClaimFields(emptyTitle, title, emptyExecutor, withExecutorChoice, chosenExecutor, executor, emptyDate, emptyTime, withDialPadOrTextInput, saveOrCancelTime, emptyDescription, description);
-        ClaimCreationSteps.saveClaim();
-        ClaimCreationSteps.checkMessageThatFieldsShouldBeFilled(activityTestRule);
-    }
-
-    @Test
-    @DisplayName("Пустой ввод в поле \"Описание\" при создании заявки")
-    public void shouldTryCreateClaimWithEmptyDescription() {
-        String emptyTitle = "no";
-        String title = "QAMIDK78";
-        String emptyExecutor = "no";
-        String withExecutorChoice = "yes";
-        String chosenExecutor = "Netology Diplom QAMID";
-        String executor = "yes";
-        String emptyDate = "no";
-        String emptyTime = "no";
-        String withDialPadOrTextInput = "dial";
-        String saveOrCancelTime = "save";
-        String emptyDescription = "yes";
-        String description = "-";
-        ControlPanelSteps.goToClaimsBlock();
-        ClaimsSteps.initiateTheCreationOfClaim();
-        ClaimCreationSteps.fillInTheClaimFields(emptyTitle, title, emptyExecutor, withExecutorChoice, chosenExecutor, executor, emptyDate, emptyTime, withDialPadOrTextInput, saveOrCancelTime, emptyDescription, description);
-        ClaimCreationSteps.saveClaim();
-        ClaimCreationSteps.checkMessageThatFieldsShouldBeFilled(activityTestRule);
     }
 
     @Test

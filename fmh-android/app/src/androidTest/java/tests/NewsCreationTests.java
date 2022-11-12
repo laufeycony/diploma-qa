@@ -1,8 +1,6 @@
 package tests;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
+import android.os.SystemClock;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.junit4.DisplayName;
@@ -30,7 +28,7 @@ public class NewsCreationTests {
 
     @Before
     public void logIn() throws InterruptedException {
-        Thread.sleep(7000);
+        SystemClock.sleep(6000);
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {

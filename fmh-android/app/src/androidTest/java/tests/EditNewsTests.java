@@ -9,6 +9,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import android.os.SystemClock;
+
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Allure;
 import io.qameta.allure.kotlin.junit4.DisplayName;
@@ -39,7 +41,7 @@ public class EditNewsTests {
 
     @Before
     public void logIn() throws InterruptedException {
-        Thread.sleep(7000);
+        SystemClock.sleep(6000);
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {
@@ -72,7 +74,7 @@ public class EditNewsTests {
     public void createNewsWithNotActiveStatus() throws InterruptedException {
         Allure.step("Создание заявки с НЕактивным статусом");
         String currentDate = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
-        // параметры новости (должны совпадать с параметрами пердварительно созданной новости!!!!!)
+        // параметры новости (должны совпадать с параметрами предварительно созданной новости!!!!!)
         String chosenCategory = "Зарплата";
         String description = "Description";
         String finalStatus = "Not active";
