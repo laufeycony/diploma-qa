@@ -14,7 +14,7 @@
 
 6. Выгрузить каталог /data/data/ru.iteco.fmhandroid/files/allure-results с эмулятора.
 
-7. Выполнить команду allure serve.
+7. Выполнить команду allure serve, находясь на уровень выше allure-results.
 
 **Комментарий**
 
