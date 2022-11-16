@@ -1,5 +1,10 @@
 package tests;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+
+import static screenElements.AuthorizationScreen.signInButton;
+
 import android.os.SystemClock;
 
 import androidx.test.espresso.NoMatchingViewException;
@@ -12,10 +17,13 @@ import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.junit4.DisplayName;
+import ru.iteco.fmhandroid.R;
 import steps.AboutAppSteps;
 import steps.AuthorizationSteps;
 import steps.BrowserSteps;
 import steps.ControlPanelSteps;
+import steps.Wait;
+
 
 @RunWith(AllureAndroidJUnit4.class)
 public class Z_AboutSoftTests {
@@ -26,7 +34,7 @@ public class Z_AboutSoftTests {
 
     @Before
     public void logIn() throws InterruptedException {
-        SystemClock.sleep(6000);
+        onView(isRoot()).perform(Wait.wait(R.id.main_menu_image_button, 6000));
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {

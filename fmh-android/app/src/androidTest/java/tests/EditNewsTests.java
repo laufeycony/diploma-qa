@@ -5,6 +5,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -31,6 +32,7 @@ import java.util.Date;
 import additional.MainHelper;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import screenElements.NewsScreen;
+import steps.Wait;
 
 @RunWith(AllureAndroidJUnit4.class)
 public class EditNewsTests {
@@ -41,7 +43,7 @@ public class EditNewsTests {
 
     @Before
     public void logIn() throws InterruptedException {
-        SystemClock.sleep(6000);
+        onView(isRoot()).perform(Wait.wait(R.id.main_menu_image_button, 6000));
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {
@@ -77,7 +79,6 @@ public class EditNewsTests {
         // параметры новости (должны совпадать с параметрами предварительно созданной новости!!!!!)
         String chosenCategory = "Зарплата";
         String description = "Description";
-        String finalStatus = "Not active";
         createNewsWithActiveStatus();
         ControlPanelSteps.goToNewsBlock();
         // проверяем,что новость, действительно, создана
@@ -88,7 +89,7 @@ public class EditNewsTests {
         // изменение статуса
         NewsCreationAndEditingSteps.changeNewsStatus();
         NewsCreationAndEditingSteps.saveNews();
-        Thread.sleep(5000);
+        onView(isRoot()).perform(Wait.wait(R.id.add_news_image_view, 6000));
         ControlPanelSteps.goToClaimsBlock();
         ControlPanelSteps.goToNewsBlock();
         NewsScreen.editNewsButton.perform(click());
@@ -124,7 +125,7 @@ public class EditNewsTests {
         // переход к редактированию новости
         NewsSteps.initiateNewsEditing(chosenCategory);
         // убеждаемся, что для редактирования выбрана именно ранее созданная новость
-        Thread.sleep(2000);
+        onView(isRoot()).perform(Wait.wait(R.id.add_news_image_view, 5000));
         NewsCreationAndEditingSteps.checkNewsInEditMode(chosenCategory, currentDate, description);
         // редактирование новости
         NewsCreationAndEditingSteps.fillInTheNewsFields(emptyCategory, withCategoryChoice, newChosenCategory, category, title, emptyDate, emptyTime, withDialPadOrTextInput, saveOrCancelTime, emptyDescription, newDescription);
@@ -158,7 +159,7 @@ public class EditNewsTests {
         // изменение статуса
         NewsCreationAndEditingSteps.changeNewsStatus();
         NewsCreationAndEditingSteps.saveNews();
-        Thread.sleep(5000);
+        onView(isRoot()).perform(Wait.wait(R.id.add_news_image_view, 3000));
         ControlPanelSteps.goToClaimsBlock();
         ControlPanelSteps.goToNewsBlock();
         NewsScreen.editNewsButton.perform(click());

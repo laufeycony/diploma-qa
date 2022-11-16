@@ -1,9 +1,13 @@
 package tests;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+
 import android.os.SystemClock;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.junit4.DisplayName;
+import ru.iteco.fmhandroid.R;
 import steps.AuthorizationSteps;
 import steps.ControlPanelSteps;
 import steps.NewsCreationAndEditingSteps;
@@ -18,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ru.iteco.fmhandroid.ui.AppActivity;
+import steps.Wait;
 
 @RunWith(AllureAndroidJUnit4.class)
 public class NewsCreationTests {
@@ -28,7 +33,7 @@ public class NewsCreationTests {
 
     @Before
     public void logIn() throws InterruptedException {
-        SystemClock.sleep(6000);
+        onView(isRoot()).perform(Wait.wait(R.id.main_menu_image_button, 6000));
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {
@@ -175,27 +180,6 @@ public class NewsCreationTests {
     }
 
     @Test
-    @DisplayName("Cоздание новости без выбора даты")
-    public void shouldCreateNewsWithEmptyDate() {
-        String emptyCategory = "no";
-        String withCategoryChoice = "yes";
-        String chosenCategory = "Зарплата";
-        String category = "no";
-        String title = "Super News";
-        String emptyDate = "yes";
-        String emptyTime = "no";
-        String withDialPadOrTextInput = "dial";
-        String saveOrCancelTime = "save";
-        String emptyDescription = "no";
-        String description = "New description";
-        ControlPanelSteps.goToNewsBlock();
-        NewsSteps.initiateTheCreationOfNews();
-        NewsCreationAndEditingSteps.fillInTheNewsFields(emptyCategory, withCategoryChoice, chosenCategory, category, title, emptyDate, emptyTime, withDialPadOrTextInput, saveOrCancelTime, emptyDescription, description);
-        NewsCreationAndEditingSteps.saveNews();
-        NewsCreationAndEditingSteps.checkMessageThatFieldShouldBeFilled(activityTestRule);
-    }
-
-    @Test
     @DisplayName("Ввод > 24 часов в поле часы при создании новости")
     public void shouldInputMoreThan24HoursWhenNewsIsBeingCreated() {
         String invalidHours = "76";
@@ -216,26 +200,4 @@ public class NewsCreationTests {
         NewsCreationAndEditingSteps.timeInput(validHours, invalidMinutes);
         NewsCreationAndEditingSteps.checkMessageOfTimeInputError();
     }
-
-    @Test
-    @DisplayName("Отмена выбора времени в разделе циферблат при создании новости")
-    public void shouldCancelSavingTimeWhenNewsAreBeingCreated() {
-        String emptyCategory = "no";
-        String withCategoryChoice = "yes";
-        String chosenCategory = "Зарплата";
-        String category = "no";
-        String title = "no";
-        String emptyDate = "no";
-        String emptyTime = "no";
-        String withDialPadOrTextInput = "dial";
-        String saveOrCancelTime = "cancel";
-        String emptyDescription = "no";
-        String description = "New description";
-        ControlPanelSteps.goToNewsBlock();
-        NewsSteps.initiateTheCreationOfNews();
-        NewsCreationAndEditingSteps.fillInTheNewsFields(emptyCategory, withCategoryChoice, chosenCategory, category, title, emptyDate, emptyTime, withDialPadOrTextInput, saveOrCancelTime, emptyDescription, description);
-        NewsCreationAndEditingSteps.saveNews();
-        NewsCreationAndEditingSteps.checkMessageThatFieldShouldBeFilled(activityTestRule);
-    }
-
 }

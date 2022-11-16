@@ -1,14 +1,19 @@
 package tests;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
+
 import android.os.SystemClock;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.junit4.DisplayName;
+import ru.iteco.fmhandroid.R;
 import steps.AuthorizationSteps;
 import steps.ClaimCreationSteps;
 import steps.ClaimsSteps;
 import steps.ControlPanelSteps;
 import ru.iteco.fmhandroid.ui.AppActivity;
+import steps.Wait;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
@@ -27,7 +32,7 @@ public class ClaimCreationTest {
 
     @Before
     public void logIn() throws InterruptedException {
-        SystemClock.sleep(6000);
+        onView(isRoot()).perform(Wait.wait(R.id.main_menu_image_button, 6000));
         try {
             AuthorizationSteps.isAuthorizationScreen();
         } catch (NoMatchingViewException e) {
